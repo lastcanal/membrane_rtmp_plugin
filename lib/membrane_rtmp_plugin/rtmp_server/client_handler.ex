@@ -231,6 +231,11 @@ defmodule Membrane.RTMPServer.ClientHandler do
      }}
   end
 
+  defp handle_event(:connection_closed, %{handler: nil} = state) do
+    Logger.warning("Got connection_closed without handler #{inspect(state)}")
+    state
+  end
+
   defp handle_event(event, state) do
     # call callbacks
     case event do
